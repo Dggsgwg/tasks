@@ -49,9 +49,17 @@ public class Mine {
         }
     }
 
-    public static void main(String[] args) {
-        task20();
+    public static void task22() {
+        System.out.println("Введите значение температуры в градусах Фаренгейта:");
+        double farengeitTemperature = scanner.nextDouble();
+        double celsiumTemperature = (farengeitTemperature - 32) / 1.8;
+        String answer = decimalFormat.format(celsiumTemperature);
+        System.out.println(answer);
+    }
 
+    public static void main(String[] args) {
+        //task20();
+        task22();
     }
 
 }
