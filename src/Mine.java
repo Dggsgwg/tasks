@@ -2,10 +2,107 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Mine {
+
     static Scanner scanner = new Scanner(System.in);
     static DecimalFormat decimalFormat = new DecimalFormat("#.###");
     static String command = "skip";
-    static int temp = 0;
+    static double temp;
+    static int hours, mins;
+
+    interface TimeTransaltion {
+        void timeTranslation();
+    }
+
+    public static void task11() {
+        TimeTransaltion timeTranslation = new TimeTransaltion() {
+            public void timeTranslation() {
+                hours = 0;
+                int tempInt = (int) temp;
+                double tempMinsDouble = (temp - tempInt);
+                String tempStringMins = decimalFormat.format(tempMinsDouble);
+                tempStringMins = tempStringMins.replace(',', '.');
+                tempMinsDouble = Double.parseDouble(tempStringMins);
+                mins = (int) (tempMinsDouble * 100);
+
+                if (mins > 60) {
+                    System.out.println("Введите правильное время в формате x,y где x - время в часах, y - время в минутах");
+                    System.exit(228);
+                }
+
+                for (int i = 0; i < tempInt; i++) {
+                    if ((temp - 1) >= 0) {
+                        hours++;
+                        temp--;
+                    }
+                }
+                System.out.println(hours + ":" + mins);
+            }
+        };
+        System.out.println("Введите время которое ученик тратит на выполнение одной лабы в формате x,y где x - время в часах, y - время в минутах");
+        temp = scanner.nextDouble();
+        timeTranslation.timeTranslation();
+        int realTimeOfDoinglabsHours = hours;
+        int realTimeOfDoinglabsMins = mins;
+        System.out.println("Введите время которое ученик сидел за столом и имитировал деланье лаб в формате x,y");
+        temp = scanner.nextDouble();
+        timeTranslation.timeTranslation();
+        int doingLabsHours = hours;
+        int doingLabsMins = mins;
+        System.out.println("Введите время которое ученик ковырял в носу и думал о шавухах в формате x,y");
+        temp = scanner.nextDouble();
+        timeTranslation.timeTranslation();
+        int thinkingAboutShavuhaHours = hours;
+        int thinkingAboutShavuhaMins = mins;
+        System.out.println("Введите время которое ученик играл в доту в формате x,y playingDotaHours");
+        temp = scanner.nextDouble();
+        timeTranslation.timeTranslation();
+        int playingDotaHours = hours;
+        int playingDotaMins = mins;
+        System.out.println("Введите время которое ученик искал в интернете неприличные мемы про преподавателя в формате x,y");
+        temp = scanner.nextDouble();
+        timeTranslation.timeTranslation();
+        int searchingExplictMemesHours = hours;
+        int searchingExplictMemesMins = mins;
+        System.out.println("Введите время которое ученик рисовал неприличные мемы про преподавателя в формате x,y");
+        temp = scanner.nextDouble();
+        timeTranslation.timeTranslation();
+        int makingExplictMemesHours = hours;
+        int makingExplictMemesMins = mins;
+
+        int finalCount = ((doingLabsHours * 60 + doingLabsMins) - (thinkingAboutShavuhaHours * 60 + thinkingAboutShavuhaMins + playingDotaHours * 60 + playingDotaMins + searchingExplictMemesHours * 60 + searchingExplictMemesMins + makingExplictMemesHours * 60 + makingExplictMemesMins)) / (realTimeOfDoinglabsHours * 60 + realTimeOfDoinglabsMins);
+        double finalCountMissed = (((doingLabsHours * 60 + doingLabsMins) - (thinkingAboutShavuhaHours * 60 + thinkingAboutShavuhaMins + playingDotaHours * 60 + playingDotaMins + searchingExplictMemesHours * 60 + searchingExplictMemesMins + makingExplictMemesHours * 60 + makingExplictMemesMins)) % (realTimeOfDoinglabsHours * 60 + realTimeOfDoinglabsMins)) / (double) (realTimeOfDoinglabsHours * 60 + realTimeOfDoinglabsMins) * 100;
+        if (finalCountMissed != 0) {
+            switch (finalCount) {
+                case 0:
+                    System.out.printf("Этот ленивый дотер не сделал всего %.0f%% одной лабы!!!", finalCountMissed);
+                    break;
+                case 1:
+                    System.out.printf("Этот ленивый дотер сделал всего 1 лабу и %.0f%% второй за %d часов и %d минут!!!", finalCountMissed, doingLabsHours, doingLabsMins);
+                    break;
+                case 2, 3, 4:
+                    System.out.printf("Этот лентяй сделал %d лабы и %.0f%% еще одной за %d часов и %d минут!!!", finalCount, doingLabsHours, doingLabsMins);
+                    break;
+                default:
+                    System.out.printf("Этот гений программирования претендует на автомат ведь он сделал %d лаб и %.0f%% еще одной", finalCount, finalCountMissed);
+                    break;
+            }
+        } else {
+            switch (finalCount) {
+                case 0:
+                    System.out.println("Этот ленивый дотер не сделал ни одной лабы!!!");
+                    break;
+                case 1:
+                    System.out.printf("Этот ленивый дотер сделал всего 1 лабу за %d час и %d минут!!!", doingLabsHours, doingLabsMins);
+                    break;
+                case 2, 3, 4:
+                    System.out.printf("Этот лентяй сделал %d лабы за %d часа и %d минут!!!", finalCount, doingLabsHours, doingLabsMins);
+                    break;
+                default:
+                    System.out.printf("Этот гений программирования претендует на автомат ведь он сделал %d лаб", finalCount);
+                    break;
+            }
+        }
+    }
 
     public static void task20() {
         int hours = 0;
@@ -97,33 +194,29 @@ public class Mine {
 
         double length = Math.abs(Math.sqrt((Math.pow((x2 - x1), 2)) + Math.pow((y2 - y1), 2) + Math.pow((z2 - z1), 2)));
         String answer = decimalFormat.format(length);
-        System.out.println("Расстояние между кораблями равно "+answer);
+        System.out.println("Расстояние между кораблями равно " + answer);
     }
 
     public static void menu() {
         System.out.println("Введите команду для выполнения:");
         if (command != "skip") {
-                scanner.nextLine();
+            scanner.nextLine();
         }
         command = scanner.nextLine();
-
-        if (command.equals("20")) {
+        if (command.equals("11")) {
+            task11();
+        } else if (command.equals("20")) {
             task20();
-        }
-        else if (command.equals("22")) {
+        } else if (command.equals("22")) {
             task22();
-        }
-        else if (command.equals("23")) {
+        } else if (command.equals("23")) {
             task23();
-        }
-        else if (command.equals("/exit")) {
+        } else if (command.equals("/exit")) {
             System.exit(228);
-        }
-        else if((command.equals("/help"))){
-            System.out.println("Доступные команды:\n20 - задача №20\n22 - задача №22\n23 - задача №23\n/exit - для выхода");
+        } else if ((command.equals("/help"))) {
+            System.out.println("Доступные команды:\n11 - задача №11\n20 - задача №20\n22 - задача №22\n23 - задача №23\n/exit - для выхода");
             command = "skip";
-        }
-        else {
+        } else {
             System.out.println("Введите корректное значение!");
             command = "skip";
         }
