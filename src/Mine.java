@@ -205,20 +205,26 @@ public class Mine {
         command = scanner.nextLine();
         if (command.equals("11")) {
             task11();
+            System.out.println("");
         } else if (command.equals("20")) {
             task20();
+            System.out.println("");
         } else if (command.equals("22")) {
             task22();
+            System.out.println("");
         } else if (command.equals("23")) {
             task23();
+            System.out.println("");
         } else if (command.equals("/exit")) {
             System.exit(228);
         } else if ((command.equals("/help"))) {
             System.out.println("Доступные команды:\n11 - задача №11\n20 - задача №20\n22 - задача №22\n23 - задача №23\n/exit - для выхода");
             command = "skip";
+            System.out.println("");
         } else {
             System.out.println("Введите корректное значение!");
             command = "skip";
+            System.out.println("");
         }
         menu();
     }
@@ -227,5 +233,4 @@ public class Mine {
         System.out.println("Введите /help для просмотра списка доступных команд");
         menu();
     }
-
 }
