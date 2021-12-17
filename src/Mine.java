@@ -1,5 +1,6 @@
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Mine {
 
@@ -8,9 +9,29 @@ public class Mine {
     static String command = "skip";
     static double temp;
     static int hours, mins;
+    static int attempts = 0;
 
     interface TimeTransaltion {
         void timeTranslation();
+    }
+
+    public static void task2() {
+        System.out.println("Введите число a:");
+        int a = scanner.nextInt();
+        System.out.println("Введите число b:");
+        int b = scanner.nextInt();
+        System.out.println("Введите число c:");
+        int c = scanner.nextInt();
+
+        if (a < b && a < c) {
+            System.out.printf("Число а(%d) - самое маленькое", a);
+        } else if (b < a && b < c) {
+            System.out.printf("Число b(%d) - самое маленькое", b);
+        } else if (c < a && c < b) {
+            System.out.printf("Число c(%d) - самое маленькое", c);
+        } else if (a == b && a == c & b == c) {
+            System.out.printf("Числа равны", b);
+        }
     }
 
     public static void task11() {
@@ -197,13 +218,134 @@ public class Mine {
         System.out.println("Расстояние между кораблями равно " + answer);
     }
 
+    public static void taskFizzBuzz() {
+        System.out.println("Введите количество итераций цикла:");
+        int n = scanner.nextInt();
+        for (int i = 1; i < n; i++) {
+            if (i % 3 == 0 && i % 5 == 0) {
+                System.out.println("FizzBuzz");
+                continue;
+            } else if (i % 3 == 0) {
+                System.out.println("Fizz");
+                continue;
+            } else if (i % 5 == 0) {
+                System.out.println("Buzz");
+                continue;
+            } else System.out.println(i);
+        }
+    }
+
+    public static void saskeeeeeeeeee() {
+        Random random = new Random();
+        boolean flag = true;
+        int min = 0, max;
+        String commands = "";
+        System.out.println("Choose your fighter!(Naruto/Saske)");
+        String fighter = scanner.nextLine();
+        if (!fighter.equals("Naruto") & !fighter.equals("naruto") & !fighter.equals("Saske") & !fighter.equals("saske")) {
+            if (attempts == 0) {
+                System.out.println("Oh, come on man....\n");
+            }
+            if (attempts >= 1 & attempts < 2) {
+                System.out.println("ENGLISH, MOTHERFUCKER, DO YOU SPEAK IT?!??!\n");
+            }
+            if (attempts>=2){
+                System.out.println("You`ve been so dumb, that Dziraya decided to don`t play with you.....");
+                System.exit(1337);
+            }
+            attempts++;
+            saskeeeeeeeeee();
+        }
+        System.out.printf("\nYou`re currently playing for %s", fighter);
+        System.out.println("\nВведите максимальное число: ");
+        int n = scanner.nextInt();
+        max = n;
+        int movesCounter = 0;
+        int secretValue = 1 + random.nextInt(n - 1);
+        int predictedValue = 1 + random.nextInt(n);
+            System.out.println("secret value " + secretValue);
+            while (flag) {
+                if (commands.equals(">")) {
+                    predictedValue = min + random.nextInt((max - min));
+                } else if (commands.equals("<")) {
+                    predictedValue = min + random.nextInt((max - min));
+                }
+                System.out.printf("\nCurrent value %d of %d\n", predictedValue, n);
+                if (predictedValue == secretValue) {
+                    System.out.printf("\n%s won ", fighter);
+                    flag = false;
+                } else if (secretValue > predictedValue) {
+                    System.out.println("More");
+                    commands = ">";
+                    min = predictedValue;
+                    movesCounter++;
+                    continue;
+                } else {
+                    System.out.println("Less");
+                    commands = "<";
+                    max = predictedValue;
+                    movesCounter++;
+                    continue;
+                }
+
+            }
+            System.out.printf("in %d moves!",movesCounter);
+            String fighter1 = fighter;
+            int fighter1Moves = movesCounter;
+            if (fighter.equals("Naruto")|fighter.equals("naruto")){
+                fighter = "Saske";
+            }
+            else fighter = "Naruto";
+
+        movesCounter = 0;
+        min = 0;
+        max = n;
+        flag = true;
+        System.out.println("\nsecret value " + secretValue);
+        while (flag) {
+            if (commands.equals(">")) {
+                predictedValue = min + random.nextInt((max - min));
+            } else if (commands.equals("<")) {
+                predictedValue = min + random.nextInt((max - min));
+            }
+            System.out.printf("\nCurrent value %d of %d\n", predictedValue, n);
+            if (predictedValue == secretValue) {
+                System.out.printf("\n%s won ", fighter);
+                flag = false;
+            } else if (secretValue > predictedValue) {
+                System.out.println("More");
+                commands = ">";
+                min = predictedValue;
+                movesCounter++;
+                continue;
+            } else {
+                System.out.println("Less");
+                commands = "<";
+                max = predictedValue;
+                movesCounter++;
+                continue;
+            }
+
+        }
+        System.out.printf("in %d moves!",movesCounter);
+        if (fighter1Moves < movesCounter)System.out.printf("\n%s won in %d moves!\n%s - you are the dumbest player i`ve ever seen. Get out of my country!",fighter1,fighter1Moves,fighter);
+        if (fighter1Moves > movesCounter)System.out.printf("\n%s won in %d moves!\n%s - you are the dumbest player i`ve ever seen. Get out of my country!",fighter,movesCounter,fighter1);
+        else if (fighter1Moves == movesCounter)System.out.printf("\n%s and %s - you are the dumbest players i`ve ever seen. You both - get out of my country!",fighter,fighter1);
+    }
+
+
+
+
     public static void menu() {
         System.out.println("Введите команду для выполнения:");
         if (command != "skip") {
             scanner.nextLine();
         }
         command = scanner.nextLine();
-        if (command.equals("11")) {
+        if (command.equals("2")) {
+            task2();
+            System.out.println("");
+        } else if (command.equals("11")) {
             task11();
             System.out.println("");
         } else if (command.equals("20")) {
@@ -215,10 +357,16 @@ public class Mine {
         } else if (command.equals("23")) {
             task23();
             System.out.println("");
+        } else if (command.equals("Naruto") | command.equals("naruto") | command.equals("Saske") | command.equals("saske")) {
+            saskeeeeeeeeee();
+            System.out.println("");
+        } else if (command.equals("fizzBuzz") | command.equals("FizzBuzz") | command.equals("fizzbuzz")) {
+            taskFizzBuzz();
+            System.out.println("");
         } else if (command.equals("/exit")) {
             System.exit(228);
         } else if ((command.equals("/help"))) {
-            System.out.println("Доступные команды:\n11 - задача №11\n20 - задача №20\n22 - задача №22\n23 - задача №23\n/exit - для выхода");
+            System.out.println("Доступные команды:\n2 - задача №2\n11 - задача №11\n20 - задача №20\n22 - задача №22\n23 - задача №23\n/exit - для выхода");
             command = "skip";
             System.out.println("");
         } else {
@@ -230,7 +378,12 @@ public class Mine {
     }
 
     public static void main(String[] args) {
+        Random random = new Random();
+        // int n;
+        // for (int i = 0; i < 20;i++) {n = 5 + random.nextInt((10-5)); System.out.println(n);}
+
         System.out.println("Введите /help для просмотра списка доступных команд");
-        menu();
+        //menu();
+        saskeeeeeeeeee();
     }
 }
